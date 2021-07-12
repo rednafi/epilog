@@ -50,7 +50,7 @@ services:
     entrypoint: ["/bin/sh","-c"]
     command:
       - |
-        python3.10 emitter.py
+        python3.10 -m epilog.emitter
 
     depends_on:
       - elasticsearch
