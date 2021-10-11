@@ -1,36 +1,62 @@
 version: "3.9"
 services:
   elasticsearch:
-    container_name: es-container
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.15.0"
     environment:
-      - xpack.security.enabled=false
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
+        - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+        - "discovery.type=single-node"
+        - "xpack.security.enabled=true"  # Adds username and password.
+        - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD} # Default user is 'elastic'.
+
+    ports:
+        - "9200:9200"
 
     volumes:
-      - ./data/es_data:/usr/share/elasticsearch/data
-    networks:
-      - es-net
-    ports:
-      - 9200:9200
+        - es_data:/usr/share/elasticsearch/data
+
 
   kibana:
-    container_name: kb-container
-    image: docker.elastic.co/kibana/kibana:7.15.0
+    image: "docker.elastic.co/kibana/kibana:7.15.0"
+    ports:
+        - "5601:5601"
+
     environment:
-      - ELASTICSEARCH_HOSTS=http://es-container:9200
-    networks:
-      - es-net
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+
     depends_on:
       - elasticsearch
-    ports:
-      - 5601:5601
+
+
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:7.15.0"
+    command: [--strict.perms=false]
+    user: root
+    volumes:
+        - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+        - /var/lib/docker:/var/lib/docker:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+
+    depends_on:
+      - elasticsearch
+      - kibana
+
+    env_file:
+      - .env
+
+  app:
+    build: .
+    container_name: epilog
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        python3.10 emitter.py
+
+    depends_on:
+      - elasticsearch
+      - kibana
+      - filebeat
+
 
 volumes:
-  data:
-    driver: local
-
-networks:
-  es-net:
-    driver: bridge
+    es_data:
