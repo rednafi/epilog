@@ -1,13 +1,13 @@
 <div align="center">
 
-<h1>Epilog</h1>
+![logo](https://user-images.githubusercontent.com/30027932/136864286-6b69a63d-2023-4cde-b769-fb69de6712c8.png)
+
 <strong>>> <i>Dead simple container log aggregation with ELK stack</i> <<</strong>
 
 &nbsp;
 
 </div>
 
-![logo](https://user-images.githubusercontent.com/30027932/136864286-6b69a63d-2023-4cde-b769-fb69de6712c8.png)
 
 
 ## Preface
