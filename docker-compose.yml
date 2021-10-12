@@ -10,22 +10,23 @@ services:
 
     ports:
         - "9200:9200"
-
     volumes:
         - es_data:/usr/share/elasticsearch/data
+    networks:
+      - epi_net
 
 
   kibana:
     image: "docker.elastic.co/kibana/kibana:7.15.0"
     ports:
         - "5601:5601"
-
     environment:
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
-
     depends_on:
       - elasticsearch
+    networks:
+      - epi_net
 
 
   filebeat:
@@ -36,27 +37,61 @@ services:
         - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
         - /var/lib/docker:/var/lib/docker:ro
         - /var/run/docker.sock:/var/run/docker.sock
-
     depends_on:
       - elasticsearch
       - kibana
 
     env_file:
       - .env
+    networks:
+      - epi_net
 
   app:
     build: .
-    container_name: epilog
     entrypoint: ["/bin/sh","-c"]
     command:
       - |
+        ./scripts/wait_for.sh
+        ./scripts/purge_logs.sh
         python3.10 -m epilog.emitter
+
+    ports:
+        - "8001:8001"
 
     depends_on:
       - elasticsearch
       - kibana
       - filebeat
 
+    networks:
+      - epi_net
+
+    env_file:
+      - .env
+
+  caddy:
+      image: caddy:2-alpine
+      container_name: caddy
+      env_file:
+        - .env
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - ./Caddyfile:/etc/caddy/Caddyfile
+        - caddy_data:/data
+        - caddy_config:/config
+
+      networks:
+        - epi_net
+
+
 
 volumes:
-    es_data:
+  es_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  epi_net:
+    driver: bridge
