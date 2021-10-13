@@ -12,29 +12,47 @@
 
 ## Preface
 
-Epilog aims to demonstrate a language agnostic, non-invasive, and straigtforward way to add centralized logging to your stack. Centralized logging can be difficult depending on how much control you need over the log messages, how robust you need the logging system to be, and how you want to display the data to the consumer.
+Epilog aims to demonstrate a language-agnostic, non-invasive, and straightforward way to add centralized logging to your stack. Centralized logging can be difficult depending on how much control you need over the log messages, how robust you need the logging system to be, and how you want to display the data to the consumer.
 
 ## Why?
 
-Invasive logging usually entails you having to build a logging pipeline and integrate that into your application. Adding extensive logging workflow directly into you application is non-trivial for a few reasons:
+Invasive logging usually entails you having to build a logging pipeline and integrate that into your application. Adding an extensive logging workflow directly to your application is non-trivial for a few reasons:
 
-* The workflow becomes language specific and hard to scale as your application gets  decentralized over time and starts to take advantage of multiple languages.
+* The workflow becomes language-specific and hard to scale as your application gets decentralized over time and starts to take advantage of multiple languages.
 
 * The logging pipeline gets tightly coupled with the application code.
 
 * Extensive logging in a blocking manner can significantly hurt the performance of the application.
 
-* Doing logging in a non-blocking state is difficult and usually requires non-trivial amount application code changes when the logging requirements change.
+* Doing logging in a non-blocking state is difficult and usually requires a non-trivial amount of application code changes when the logging requirements change.
 
-This repository lays out a dead-simple but an extensible centralized logging workflow that collects logs from docker containers in a non-invasive manner. It leverages Filebeat to collect the logs, Elasticsearch to store and query the log messages, and Kibana to visualize the data interactively.
+This repository lays out a dead-simple but extensible centralized logging workflow that collects logs from docker containers in a non-invasive manner. To achieve this, we've used the reliable ELK stack which is at this point, an industry standard.
 
 ## Architecture
 
+This workflow leverages Filebeat to collect the logs, Elasticsearch to store and query the log messages, and Kibana to visualize the data interactively. The following diagram explains how logs flow from your application containers and becomes queryable in the Kibana dashboards:
+
+![epilog_arch](https://user-images.githubusercontent.com/30027932/137157947-16f58852-5040-4a26-b5d4-b5a6e5ecc0d0.png)
+
+Here, the **Application** is a dockerized Python module that continuously sends log messages to the standard output.
+
+On a Unix machine, Docker containers save these log messages in the `/var/lib/docker/containers/*/*.log` directory. In this directory, **Filebeat** listens for new log messages and sends them to **Elasticsearch** in batches. This makes the entire logging workflow asynchronous as Filebeat isn't coupled with the application and is lightweight enough to be deployed with every instance of your application.
+
+The log consumer can make query requests via the **Kibana** dashboards and interactively search and filter the relevant log messages. The **Caddy** reverse proxy server is helpful during local development as you won't have to memorize the ports to access Elasticsearch and Kibana. You can also choose to use Caddy instead of Ngnix as a reverse proxy and load balancer in your production orchestration.
+
+## Directory Structure
+
 Under construction...
+
+
+## Features
+
+Under construction...
+
 
 ## Installation
 
-* Make sure you have Docker, Docker compose V2 installed on you system.
+* Make sure you have Docker, Docker compose V2 installed on your system.
 * Clone the repo.
 * Go to the root directory and run:
 
@@ -48,6 +66,18 @@ Under construction...
 * Since our reverse proxy adds SSL to the localhost, your browser will complain about the site being unsafe. Just ignore that and move past that.
 
 * When prompted, use `elastic` as username and `debian` as password.
+
+## Limitations
+
+Under construction...
+
+
+## Maintenance & Extensibility
+
+**TODO:** Why not Logstash here? No transformation was done on the log messages, that's why.
+
+Under construction...
+
 
 <div align="center">
 <i> ✨ 🍰 ✨ </i>
