@@ -24,13 +24,12 @@ Invasive logging usually entails you having to build a logging pipeline and inte
 
 * Doing logging in a non-blocking state is difficult and usually requires non-trivial amount application code changes when the logging requirements change.
 
-This repository lays out a dead-simple but extensible centralized logging workflow that collects logs from docker containers in a non-invasive manner. It leverages Filebeat to collect the logs, Elasticsearch to store and query the log messages, and Kibana to visualize the data interactively.
+This repository lays out a dead-simple but an extensible centralized logging workflow that collects logs from docker containers in a non-invasive manner. It leverages Filebeat to collect the logs, Elasticsearch to store and query the log messages, and Kibana to visualize the data interactively.
 
 ## Architecture
 
 Under construction...
 
-<h1>mistletoe<img src='https://cdn.rawgit.com/miyuchina/mistletoe/master/resources/logo.svg' align='right' width='128' height='128'></h1>
 ## Installation
 
 * Make sure you have Docker, Docker compose V2 installed on you system.
