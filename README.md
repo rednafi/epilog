@@ -14,6 +14,8 @@
 
 Epilog aims to demonstrate a language agnostic, non-invasive, and straigtforward way to add centralized logging to your stack. Centralized logging can be difficult depending on how much control you need over the log messages, how robust you need the logging system to be, and how you want to display the data to the consumer.
 
+## Why?
+
 Invasive logging usually entails you having to build a logging pipeline and integrate that into your application. Adding extensive logging workflow directly into you application is non-trivial for a few reasons:
 
 * The workflow becomes language specific and hard to scale as your application gets  decentralized over time and starts to take advantage of multiple languages.
