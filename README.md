@@ -28,6 +28,21 @@ Invasive logging usually entails you having to build a logging pipeline and inte
 
 This repository lays out a dead-simple but extensible centralized logging workflow that collects logs from docker containers in a non-invasive manner. To achieve this, we've used the reliable ELK stack which is at this point, an industry standard.
 
+
+## Features
+
+• Asynchronous log-aggregation pipeline that's completely decoupled from the app instances generating the logs.
+
+• Zero effect on performance if the app instances aren't doing expensive synchronous logging operations internally.
+
+• Horizontal scaling is achievable by partitioning and replicating the Elasticsearch nodes.
+
+• Too keep the storage requirements at bay, log messages are automatically deleted after 7 days. This is configurable.
+
+• Synchronization during container startup to reduce the number of missing logs.
+
+• All the Log messages can be filtered and queried interactively from a centralized location via Kibana dashboard.
+
 ## Architecture
 
 This workflow leverages Filebeat to collect the logs, Elasticsearch to store and query the log messages, and Kibana to visualize the data interactively. The following diagram explains how logs flow from your application containers and becomes queryable in the Kibana dashboards:
@@ -40,12 +55,8 @@ On a Unix machine, Docker containers save these log messages in the `/var/lib/do
 
 The log consumer can make query requests via the **Kibana** dashboards and interactively search and filter the relevant log messages. The **Caddy** reverse proxy server is helpful during local development as you won't have to memorize the ports to access Elasticsearch and Kibana. You can also choose to use Caddy instead of Ngnix as a reverse proxy and load balancer in your production orchestration.
 
+
 ## Directory Structure
-
-Under construction...
-
-
-## Features
 
 Under construction...
 
@@ -77,6 +88,11 @@ Under construction...
 **TODO:** Why not Logstash here? No transformation was done on the log messages, that's why.
 
 Under construction...
+
+
+## Resources
+
+* [ELK: Delete old logging data using the Index Lifecycle Management](http://blog.ehrnhoefer.com/2019-05-04-elasticsearch-index-lifecycle-management/)
 
 
 <div align="center">
