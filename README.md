@@ -12,8 +12,14 @@
 
 ## Preface
 
-Under construction....
+Under construction...
 
+## Architecture
+
+Under construction...
+
+
+![epilog_arch](https://user-images.githubusercontent.com/30027932/137043528-16281894-00b3-4269-9dd5-59d1d6c0e132.png)
 
 ## Installation
 
