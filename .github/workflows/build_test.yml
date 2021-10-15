@@ -51,8 +51,8 @@ jobs:
         run: |
           sudo sysctl -w vm.max_map_count=262144
           sudo docker compose up -d \
-                -e ELASTICSEARCH_USERNAME=$ELASTICSEARCH_USERNAME \
-                ELASTICSEARCH_PASSWORD=$ELASTICSEARCH_PASSWORD \
+                -e ELASTICSEARCH_USERNAME=${{ env.ELASTICSEARCH_USERNAME }} \
+                ELASTICSEARCH_PASSWORD=${{ env.ELASTICSEARCH_PASSWORD }} \
                 INDEX_PREFIX=filebeat
                 PURGE_AFTER=7d
 
