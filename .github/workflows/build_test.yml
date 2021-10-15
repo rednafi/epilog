@@ -50,9 +50,13 @@ jobs:
 
         run: |
           sudo sysctl -w vm.max_map_count=262144
-          sudo docker compose up -d
-          apt install jq
+          sudo docker compose up -d \
+                -e ELASTICSEARCH_USERNAME=$ELASTICSEARCH_USERNAME \
+                ELASTICSEARCH_PASSWORD=$ELASTICSEARCH_PASSWORD \
+                INDEX_PREFIX=filebeat
+                PURGE_AFTER=7d
 
+          apt install jq
           until docker inspect --format "{{json .State.Health }}" caddy | \
                                   jq '.Status' | grep 'healthy'; do
 
