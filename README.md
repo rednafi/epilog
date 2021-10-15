@@ -49,7 +49,7 @@ This repository lays out a dead-simple but extensible centralized logging workfl
 
 ## Architecture
 
-This workflow leverages Filebeat to collect the logs, Elasticsearch to store and query the log messages, and Kibana to visualize the data interactively. The following diagram explains how logs flow from your application containers and becomes queryable in the Kibana dashboards:
+This workflow leverages [Filebeat](https://www.elastic.co/beats/filebeat) to collect the logs, [Elasticsearch](https://www.elastic.co/elasticsearch/) to store and query the log messages, and [Kibana](https://www.elastic.co/kibana/) to visualize the data interactively. The following diagram explains how logs flow from your application containers and becomes queryable in the Kibana dashboards:
 
 ![epilog_arch](https://user-images.githubusercontent.com/30027932/137414620-b32c09e3-6c11-4020-847b-5ea0e1222c33.png)
 
@@ -118,11 +118,15 @@ Once you've run the `make up` command:
 
 ## Disclaimer
 
+* This pipleline was tested in a Unix-like system, mainly Ubuntu and macOS. Also, the bash scripts might not work out of the box on Windows.
+
 * This setup only employs a rudimentary password-based authentication system. You should add TLS encryption to your production ELK stack. [Here's](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-tls-docker.html) an example of how you might be able to do so.
 
 * For demonstration purposes, this repository has `.env` file in the root directory. In your production application, you should never add the `.env` files to your version control system.
 
 ## Resources
+
+* [Elasticsearch: What It Is, How It Works, And What It’s Used For](https://www.knowi.com/blog/what-is-elastic-search/)
 
 * [ELK: Delete old logging data using the Index Lifecycle Management](http://blog.ehrnhoefer.com/2019-05-04-elasticsearch-index-lifecycle-management/)
 
