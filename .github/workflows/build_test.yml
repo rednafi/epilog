@@ -42,3 +42,10 @@ jobs:
       - name: Run the tests
         run: |
           pytest -s -v
+
+      - name: Build containers
+        run: |
+          sudo sysctl -w vm.max_map_count=262144
+          sudo docker compose up -d
+          apt install jq
+          ./scripts/build_ci.sh

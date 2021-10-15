@@ -36,7 +36,6 @@ services:
       - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
       - xpack.security.enabled=true
       - 'ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}'
-
     ulimits:
       memlock:
         soft: -1
@@ -73,13 +72,13 @@ services:
       - './filebeat.yml:/usr/share/filebeat/filebeat.yml:ro'
       - '/var/lib/docker:/var/lib/docker:ro'
       - '/var/run/docker.sock:/var/run/docker.sock'
-    depends_on:
-      - elasticsearch
-      - kibana
     env_file:
       - .env
     networks:
       - elastic
+    depends_on:
+      - elasticsearch
+      - kibana
 
 
   app:
@@ -94,15 +93,15 @@ services:
         python3.10 -m epilog.emitter
     ports:
       - '8001:8001'
+    networks:
+      - elastic
+    env_file:
+      - .env
     depends_on:
       - es01
       - es02
       - filebeat
       - kibana
-    networks:
-      - elastic
-    env_file:
-      - .env
 
 
   caddy:
@@ -117,15 +116,28 @@ services:
       - './Caddyfile:/etc/caddy/Caddyfile'
       - './data/caddy_data:/data'
       - './data/caddy_config:/config'
+      - './scripts:/scripts'
     networks:
       - elastic
+    healthcheck:
+      test: ../scripts/health_check.sh
+      interval: 20s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    depends_on:
+      - es0
+      - es1
+      - filebeat
+      - kibana
+      - app
 
 
 volumes:
   data_es01: null
   data_es02: null
 
-
+  
 networks:
   elastic:
     driver: bridge
