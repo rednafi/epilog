@@ -44,17 +44,13 @@ jobs:
           pytest -s -v
 
       - name: Build containers
-        env:
-          ELASTICSEARCH_USERNAME: ${{ secrets.ELASTICSEARCH_USERNAME }}
-          ELASITICSEARCH_PASSWORD: ${{ secrets.ELASITICSEARCH_PASSWORD }}
+        with:
+          directory: './'
+          file_name: '.env'
 
         run: |
           sudo sysctl -w vm.max_map_count=262144
-          sudo docker compose up -d \
-                -e ELASTICSEARCH_USERNAME=${{ env.ELASTICSEARCH_USERNAME }} \
-                ELASTICSEARCH_PASSWORD=${{ env.ELASTICSEARCH_PASSWORD }} \
-                INDEX_PREFIX=filebeat
-                PURGE_AFTER=7d
+          sudo docker compose up -d
 
           apt install jq
           until docker inspect --format "{{json .State.Health }}" caddy | \
