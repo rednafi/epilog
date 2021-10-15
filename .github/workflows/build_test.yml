@@ -44,12 +44,12 @@ jobs:
           pytest -s -v
 
       - name: Build containers
+        env:
+          ELASTICSEARCH_USERNAME:${{ secrets.ELASTICSEARCH_USERNAME }}
+          ELASITICSEARCH_PASSWORD:${{ secrets.ELASITICSEARCH_PASSWORD }}
+
         run: |
           sudo sysctl -w vm.max_map_count=262144
           sudo docker compose up -d
           apt install jq
           ./scripts/build_ci.sh
-
-        env:
-          ELASTICSEARCH_USERNAME={{ secrets.ELASTICSEARCH_USERNAME }}
-          ELASITICSEARCH_PASSWORD={{ secrets.ELASITICSEARCH_PASSWORD }}
