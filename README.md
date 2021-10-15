@@ -18,8 +18,7 @@ Under construction...
 
 Under construction...
 
-
-![epilog_arch](https://user-images.githubusercontent.com/30027932/137043528-16281894-00b3-4269-9dd5-59d1d6c0e132.png)
+![epilog_arch](https://user-images.githubusercontent.com/30027932/137044014-31b65915-1647-4612-90fd-550b6fa2f0c9.png)
 
 ## Installation
 
@@ -32,7 +31,8 @@ Under construction...
     ```
 ## Exploration
 
-* To access the Kibana dashboard, go to: `http://localhost:5601`.
+* To access the Kibana dashboard, go to: `https://kibana.localhost`.
+* Since our reverse proxy adds SSL to the localhost, your browser will complain about the site being unsafe. Just ignore that and move on.
 * Use `elastic` as username and `debian` as password.
 
 <div align="center">
