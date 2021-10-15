@@ -1,11 +1,11 @@
 elasticsearch.localhost {
-	reverse_proxy elasticsearch:9200
+	reverse_proxy es01:9200
 	encode zstd gzip
 
 }
 
 kibana.localhost {
-	reverse_proxy kibana:5601
+	reverse_proxy kib01:5601
 	encode zstd gzip
 
 }

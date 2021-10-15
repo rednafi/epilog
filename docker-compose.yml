@@ -1,97 +1,131 @@
-version: "3.9"
+version: '3.9'
 services:
-  elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:7.15.0"
+  es01:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.15.0'
+    container_name: es01
     environment:
-        - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-        - "discovery.type=single-node"
-        - "xpack.security.enabled=true"  # Adds username and password.
-        - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD} # Default user is 'elastic'.
-
-    ports:
-        - "9200:9200"
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02
+      - 'cluster.initial_master_nodes=es01,es02'
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - xpack.security.enabled=true
+      - 'ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
-        - es_data:/usr/share/elasticsearch/data
-    networks:
-      - epi_net
-
-
-  kibana:
-    image: "docker.elastic.co/kibana/kibana:7.15.0"
+      - 'data_es01:/usr/share/elasticsearch/data'
     ports:
-        - "5601:5601"
-    environment:
-      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
-      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
-    depends_on:
-      - elasticsearch
+      - '9200:9200'
     networks:
-      - epi_net
+      - elastic
+
+
+  es02:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.15.0'
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01
+      - 'cluster.initial_master_nodes=es01,es02'
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - xpack.security.enabled=true
+      - 'ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}'
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - 'data_es02:/usr/share/elasticsearch/data'
+    networks:
+      - elastic
+
+
+  kib01:
+    image: 'docker.elastic.co/kibana/kibana:7.15.0'
+    container_name: kib01
+    ports:
+      - '5601:5601'
+    environment:
+      - 'ELASTICSEARCH_URL=http://es01:9200'
+      - 'ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}'
+      - 'ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}'
+      - 'ELASTICSEARCH_HOSTS=["http://es01:9200","http://es02:9200"]'
+    networks:
+      - elastic
+    depends_on:
+      - es01
+      - es02
 
 
   filebeat:
-    image: "docker.elastic.co/beats/filebeat:7.15.0"
-    command: [--strict.perms=false]
+    image: 'docker.elastic.co/beats/filebeat:7.15.0'
+    command:
+      - '--strict.perms=false'
     user: root
     volumes:
-        - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-        - /var/lib/docker:/var/lib/docker:ro
-        - /var/run/docker.sock:/var/run/docker.sock
+      - './filebeat.yml:/usr/share/filebeat/filebeat.yml:ro'
+      - '/var/lib/docker:/var/lib/docker:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock'
     depends_on:
       - elasticsearch
       - kibana
-
     env_file:
       - .env
     networks:
-      - epi_net
+      - elastic
+
 
   app:
     build: .
-    entrypoint: ["/bin/sh","-c"]
+    entrypoint:
+      - /bin/sh
+      - '-c'
     command:
       - |
         ./scripts/wait_for.sh
         ./scripts/purge_logs.sh
         python3.10 -m epilog.emitter
-
     ports:
-        - "8001:8001"
-
+      - '8001:8001'
     depends_on:
-      - elasticsearch
-      - kibana
+      - es01
+      - es02
       - filebeat
-
+      - kibana
     networks:
-      - epi_net
-
+      - elastic
     env_file:
       - .env
 
+
   caddy:
-      image: caddy:2-alpine
-      container_name: caddy
-      env_file:
-        - .env
-      ports:
-        - "80:80"
-        - "443:443"
-      volumes:
-        - ./Caddyfile:/etc/caddy/Caddyfile
-        - caddy_data:/data
-        - caddy_config:/config
-
-      networks:
-        - epi_net
-
+    image: 'caddy:2-alpine'
+    container_name: caddy
+    env_file:
+      - .env
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - './Caddyfile:/etc/caddy/Caddyfile'
+      - './data/caddy_data:/data'
+      - './data/caddy_config:/config'
+    networks:
+      - elastic
 
 
 volumes:
-  es_data:
-  caddy_data:
-  caddy_config:
+  data_es01: null
+  data_es02: null
+
 
 networks:
-  epi_net:
+  elastic:
     driver: bridge

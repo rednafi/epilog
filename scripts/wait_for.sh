@@ -23,6 +23,6 @@ wait_for () {
 
 }
 
-wait_for http://elasticsearch:9200 Elasticsearch
+wait_for http://es01:9200 Elasticsearch
 
-wait_for http://kibana:5601/api/features Kibana
+wait_for http://kib01:5601/api/features Kibana

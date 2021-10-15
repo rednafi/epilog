@@ -80,3 +80,15 @@ dep-lock: ## Freeze deps in 'requirements.txt' file.
 .PHONY: dep-sync
 dep-sync: ## Sync venv installation with 'requirements.txt' file.
 	@pip-sync
+
+.PHONY: up
+up: ## Start all the containers.
+	@sudo sysctl -w vm.max_map_count=262144 && docker compose up -d
+
+.PHONY: down
+down: ## Stop all the containers.
+	@docker compose down
+
+.PHONY: clean
+clean: ## Clean up all the container artifacts.
+	@docker system prune -f && docker volume prune -f && sudo rm -rf ./data

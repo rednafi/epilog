@@ -6,6 +6,16 @@ filebeat.inputs:
 processors:
 - add_docker_metadata:
     host: "unix:///var/run/docker.sock" # Filebeat communicates via unix socket.
+    match_fields: ["system.process.cgroup.id"]
+    match_pids: ["process.pid", "process.ppid"]
+    match_source: true
+    match_source_index: 4
+    match_short_id: true
+    cleanup_timeout: 60
+    labels.dedot: false
+
+- add_host_metadata:
+      cache.ttl: 5m
 
 - decode_json_fields:
     fields: ["message"]
@@ -13,7 +23,7 @@ processors:
     overwrite_keys: true
 
 output.elasticsearch:
-  hosts: ["elasticsearch:9200"] # Remote host can be : "https://myEShost:9200".
+  hosts: ["es01:9200"] # Remote host can be : "https://myEShost:9200".
   username: ${ELASTICSEARCH_USERNAME}
   password: ${ELASTICSEARCH_PASSWORD}
 
