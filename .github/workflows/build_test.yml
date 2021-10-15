@@ -45,8 +45,8 @@ jobs:
 
       - name: Build containers
         env:
-          ELASTICSEARCH_USERNAME:${{ secrets.ELASTICSEARCH_USERNAME }}
-          ELASITICSEARCH_PASSWORD:${{ secrets.ELASITICSEARCH_PASSWORD }}
+          ELASTICSEARCH_USERNAME: ${{ secrets.ELASTICSEARCH_USERNAME }}
+          ELASITICSEARCH_PASSWORD: ${{ secrets.ELASITICSEARCH_PASSWORD }}
 
         run: |
           sudo sysctl -w vm.max_map_count=262144
