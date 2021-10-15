@@ -49,3 +49,7 @@ jobs:
           sudo docker compose up -d
           apt install jq
           ./scripts/build_ci.sh
+
+        env:
+          ELASTICSEARCH_USERNAME: {{ secrets.ELASTICSEARCH_USERNAME }}
+          ELASITICSEARCH_PASSWORD: {{ secrets.ELASITICSEARCH_PASSWORD }}
