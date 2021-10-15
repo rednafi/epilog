@@ -52,4 +52,13 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
           sudo docker compose up -d
           apt install jq
-          ./scripts/build_ci.sh
+
+          until docker inspect --format "{{json .State.Health }}" caddy | \
+                                  jq '.Status' | grep 'healthy'; do
+
+              >&2 echo "Elk stack is unhealthy - waiting..."
+
+              sleep 1
+              done
+
+              >&2 echo "Elk stack is healthy - proceeding..."
