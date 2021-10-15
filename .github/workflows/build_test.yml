@@ -51,5 +51,5 @@ jobs:
           ./scripts/build_ci.sh
 
         env:
-          ELASTICSEARCH_USERNAME: {{ secrets.ELASTICSEARCH_USERNAME }}
-          ELASITICSEARCH_PASSWORD: {{ secrets.ELASITICSEARCH_PASSWORD }}
+          ELASTICSEARCH_USERNAME={{ secrets.ELASTICSEARCH_USERNAME }}
+          ELASITICSEARCH_PASSWORD={{ secrets.ELASITICSEARCH_PASSWORD }}
