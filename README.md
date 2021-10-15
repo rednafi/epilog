@@ -5,7 +5,6 @@
 
 <strong>>> <i>Dead simple container log aggregation with ELK stack</i> <<</strong>
 
-&nbsp;
 
 </div>
 
