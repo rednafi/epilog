@@ -43,22 +43,19 @@ jobs:
         run: |
           pytest -s -v
 
-      - name: Build containers
-        with:
-          directory: './'
-          file_name: '.env'
+      # - name: Build containers
 
-        run: |
-          sudo sysctl -w vm.max_map_count=262144
-          sudo docker compose up -d
+      #   run: |
+      #     sudo sysctl -w vm.max_map_count=262144
+      #     sudo docker compose up -d
 
-          apt install jq
-          until docker inspect --format "{{json .State.Health }}" caddy | \
-                                  jq '.Status' | grep 'healthy'; do
+      #     apt install jq
+      #     until docker inspect --format "{{json .State.Health }}" caddy | \
+      #                             jq '.Status' | grep 'healthy'; do
 
-              >&2 echo "Elk stack is unhealthy - waiting..."
+      #         >&2 echo "Elk stack is unhealthy - waiting..."
 
-              sleep 1
-              done
+      #         sleep 1
+      #         done
 
-              >&2 echo "Elk stack is healthy - proceeding..."
+      #         >&2 echo "Elk stack is healthy - proceeding..."
