@@ -1,13 +1,13 @@
-<div align="center">
+<div align="left">
 
-![logo](https://user-images.githubusercontent.com/30027932/136864286-6b69a63d-2023-4cde-b769-fb69de6712c8.png)
+<h1>Epilog<img src='https://user-images.githubusercontent.com/30027932/137415294-289f24ae-486b-421f-bf19-99c79a99d501.png' align='right' width='128' height='128'></h1>
+
 
 <strong>>> <i>Dead simple container log aggregation with ELK stack</i> <<</strong>
 
 &nbsp;
 
 </div>
-
 
 
 ## Preface
@@ -31,23 +31,24 @@ This repository lays out a dead-simple but extensible centralized logging workfl
 
 ## Features
 
-• Asynchronous log-aggregation pipeline that's completely decoupled from the app instances generating the logs.
+* Asynchronous log-aggregation pipeline that's completely decoupled from the app instances generating the logs.
 
-• Zero effect on performance if the app instances aren't doing expensive synchronous logging operations internally.
+* Zero effect on performance if the app instances aren't doing expensive synchronous logging operations internally.
 
-• Horizontal scaling is achievable by partitioning and replicating the Elasticsearch nodes.
+* Horizontal scaling is achievable by adding more nodes to the Elasticsearch cluster.
 
-• Too keep the storage requirements at bay, log messages are automatically deleted after 7 days. This is configurable.
+* Too keep the storage requirements at bay, log messages are automatically deleted after 7 days. This is configurable.
 
-• Synchronization during container startup to reduce the number of missing logs.
+* Synchronization during container startup to reduce the number of missing logs.
 
-• All the Log messages can be filtered and queried interactively from a centralized location via Kibana dashboard.
+* All the Log messages can be filtered and queried interactively from a centralized location via Kibana dashboard.
+
 
 ## Architecture
 
 This workflow leverages Filebeat to collect the logs, Elasticsearch to store and query the log messages, and Kibana to visualize the data interactively. The following diagram explains how logs flow from your application containers and becomes queryable in the Kibana dashboards:
 
-![epilog_arch](https://user-images.githubusercontent.com/30027932/137157947-16f58852-5040-4a26-b5d4-b5a6e5ecc0d0.png)
+![epilog_arch](https://user-images.githubusercontent.com/30027932/137414620-b32c09e3-6c11-4020-847b-5ea0e1222c33.png)
 
 Here, the **Application** is a dockerized Python module that continuously sends log messages to the standard output.
 
