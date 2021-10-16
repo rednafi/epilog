@@ -1,6 +1,7 @@
 <div align="center">
 
-![logo](https://user-images.githubusercontent.com/30027932/136864286-6b69a63d-2023-4cde-b769-fb69de6712c8.png)
+![epilog_arch](https://user-images.githubusercontent.com/30027932/137044351-71e74ad6-0dda-45b8-865c-c7c5d7b03618.png)
+
 
 <strong>>> <i>Dead simple container log aggregation with ELK stack</i> <<</strong>
 
