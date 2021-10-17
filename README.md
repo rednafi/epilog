@@ -1,7 +1,6 @@
 <div align="center">
 
-![epilog_arch](https://user-images.githubusercontent.com/30027932/137044351-71e74ad6-0dda-45b8-865c-c7c5d7b03618.png)
-
+![logo](https://user-images.githubusercontent.com/30027932/136864286-6b69a63d-2023-4cde-b769-fb69de6712c8.png)
 
 <strong>>> <i>Dead simple container log aggregation with ELK stack</i> <<</strong>
 
@@ -19,7 +18,7 @@ Under construction...
 
 Under construction...
 
-![epilog_arch](https://user-images.githubusercontent.com/30027932/137044014-31b65915-1647-4612-90fd-550b6fa2f0c9.png)
+![epilog_arch](https://user-images.githubusercontent.com/30027932/137044351-71e74ad6-0dda-45b8-865c-c7c5d7b03618.png)
 
 ## Installation
 
@@ -33,7 +32,7 @@ Under construction...
 ## Exploration
 
 * To access the Kibana dashboard, go to: `https://kibana.localhost`.
-* Since our reverse proxy adds SSL to the localhost, your browser will complain about the site being unsafe. Just ignore that and move on.
+* Since our reverse proxy adds SSL to the localhost, your browser will complain about the site being unsafe. Just ignore that and move
 * Use `elastic` as username and `debian` as password.
 
 <div align="center">
