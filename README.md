@@ -18,7 +18,7 @@ Under construction...
 
 Under construction...
 
-![epilog_arch](https://user-images.githubusercontent.com/30027932/137045195-2603aa5f-e419-441e-a818-feaece668585.png)
+![epilog_arch](https://user-images.githubusercontent.com/30027932/137045952-3ed6b642-fa1d-413c-a490-525dd398a7f7.png)
 
 ## Installation
 
