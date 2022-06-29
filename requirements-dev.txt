@@ -8,6 +8,8 @@ attrs==21.2.0
     # via pytest
 black==22.6.0
     # via -r requirements-dev.in
+build==0.8.0
+    # via pip-tools
 click==8.0.1
     # via
     #   black
@@ -27,12 +29,14 @@ mypy-extensions==0.4.3
     #   black
     #   mypy
 packaging==21.0
-    # via pytest
+    # via
+    #   build
+    #   pytest
 pathspec==0.9.0
     # via black
 pep517==0.11.0
-    # via pip-tools
-pip-tools==6.6.2
+    # via build
+pip-tools==6.7.0
     # via -r requirements-dev.in
 platformdirs==2.3.0
     # via black
@@ -51,8 +55,8 @@ pytest==7.1.2
 tomli==1.2.1
     # via
     #   black
+    #   build
     #   mypy
-    #   pep517
     #   pytest
 typing-extensions==3.10.0.2
     # via mypy
