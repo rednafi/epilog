@@ -14,13 +14,13 @@ click==8.0.1
     # via
     #   black
     #   pip-tools
-flake8==4.0.1
+flake8==6.0.0
     # via -r requirements-dev.in
 iniconfig==1.1.1
     # via pytest
 isort==5.11.4
     # via -r requirements-dev.in
-mccabe==0.6.1
+mccabe==0.7.0
     # via flake8
 mypy==0.991
     # via -r requirements-dev.in
@@ -42,9 +42,9 @@ platformdirs==2.3.0
     # via black
 pluggy==1.0.0
     # via pytest
-pycodestyle==2.8.0
+pycodestyle==2.10.0
     # via flake8
-pyflakes==2.4.0
+pyflakes==3.0.1
     # via flake8
 pyparsing==2.4.7
     # via packaging
