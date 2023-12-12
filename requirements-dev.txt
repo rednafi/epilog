@@ -4,35 +4,21 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
-annotated-types==0.6.0
-    # via pydantic
 black==23.11.0
     # via -r requirements-dev.in
 build==0.8.0
     # via pip-tools
-cerberus==1.3.5
-    # via plette
-certifi==2023.11.17
-    # via requests
-charset-normalizer==3.3.2
-    # via requests
 click==8.0.1
     # via
     #   black
     #   pip-tools
-distlib==0.3.7
-    # via requirementslib
-docopt==0.6.2
-    # via pipreqs
 exceptiongroup==1.1.3
     # via pytest
 flake8==6.1.0
     # via -r requirements-dev.in
-idna==3.6
-    # via requests
 iniconfig==1.1.1
     # via pytest
-isort==5.13.0
+isort==5.13.1
     # via -r requirements-dev.in
 mccabe==0.7.0
     # via flake8
@@ -50,39 +36,19 @@ packaging==23.0
 pathspec==0.9.0
     # via black
 pep517==0.11.0
-    # via
-    #   build
-    #   requirementslib
-pip-api==0.0.30
-    # via isort
+    # via build
 pip-tools==7.3.0
     # via -r requirements-dev.in
-pipreqs==0.4.13
-    # via isort
 platformdirs==2.3.0
-    # via
-    #   black
-    #   requirementslib
-plette[validation]==0.4.4
-    # via requirementslib
+    # via black
 pluggy==1.0.0
     # via pytest
 pycodestyle==2.11.0
     # via flake8
-pydantic==2.5.2
-    # via requirementslib
-pydantic-core==2.14.5
-    # via pydantic
 pyflakes==3.1.0
     # via flake8
 pytest==7.4.3
     # via -r requirements-dev.in
-requests==2.31.0
-    # via
-    #   requirementslib
-    #   yarg
-requirementslib==3.0.0
-    # via isort
 tomli==1.2.1
     # via
     #   black
@@ -91,22 +57,12 @@ tomli==1.2.1
     #   pep517
     #   pip-tools
     #   pytest
-tomlkit==0.12.3
-    # via
-    #   plette
-    #   requirementslib
 typing-extensions==4.6.3
     # via
     #   black
     #   mypy
-    #   pydantic
-    #   pydantic-core
-urllib3==2.1.0
-    # via requests
 wheel==0.37.0
     # via pip-tools
-yarg==0.1.9
-    # via pipreqs
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
