@@ -49,7 +49,7 @@ pyproject-hooks==1.0.0
     # via
     #   build
     #   pip-tools
-pytest==8.3.1
+pytest==8.3.2
     # via -r requirements-dev.in
 tomli==1.2.1
     # via
