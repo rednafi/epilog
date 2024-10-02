@@ -1,4 +1,4 @@
-FROM python:3.12.6-alpine
+FROM python:3.12.7-alpine
 ENV PYTHONUNBUFFERED=1
 
 RUN apk --no-cache add curl
