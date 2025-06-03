@@ -47,11 +47,13 @@ pycodestyle==2.13.0
     # via flake8
 pyflakes==3.3.1
     # via flake8
+pygments==2.19.1
+    # via pytest
 pyproject-hooks==1.0.0
     # via
     #   build
     #   pip-tools
-pytest==8.3.5
+pytest==8.4.0
     # via -r requirements-dev.in
 tomli==1.2.1
     # via
