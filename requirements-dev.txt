@@ -37,7 +37,7 @@ pathspec==0.9.0
     # via
     #   black
     #   mypy
-pip-tools==7.4.1
+pip-tools==7.5.0
     # via -r requirements-dev.in
 platformdirs==2.3.0
     # via black
