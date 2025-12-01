@@ -20,9 +20,11 @@ iniconfig==1.1.1
     # via pytest
 isort==7.0.0
     # via -r requirements-dev.in
+librt==0.6.3
+    # via mypy
 mccabe==0.7.0
     # via flake8
-mypy==1.18.2
+mypy==1.19.0
     # via -r requirements-dev.in
 mypy-extensions==1.0.0
     # via
