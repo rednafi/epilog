@@ -4,6 +4,8 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
+ast-serialize==0.3.0
+    # via mypy
 black==26.3.1
     # via -r requirements-dev.in
 build==1.0.3
@@ -20,11 +22,11 @@ iniconfig==1.1.1
     # via pytest
 isort==8.0.1
     # via -r requirements-dev.in
-librt==0.8.1
+librt==0.10.0
     # via mypy
 mccabe==0.7.0
     # via flake8
-mypy==1.20.2
+mypy==2.0.0
     # via -r requirements-dev.in
 mypy-extensions==1.0.0
     # via
