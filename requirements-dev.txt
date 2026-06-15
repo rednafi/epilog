@@ -57,7 +57,7 @@ pyproject-hooks==1.0.0
     # via
     #   build
     #   pip-tools
-pytest==9.0.3
+pytest==9.1.0
     # via -r requirements-dev.in
 pytokens==0.4.1
     # via black
