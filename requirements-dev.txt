@@ -41,7 +41,7 @@ pathspec==1.0.3
     # via
     #   black
     #   mypy
-pip-tools==7.6.0
+pip-tools==7.6.1
     # via -r requirements-dev.in
 platformdirs==2.3.0
     # via black
@@ -73,6 +73,7 @@ typing-extensions==4.6.3
     # via
     #   black
     #   mypy
+    #   pip-tools
 wheel==0.37.0
     # via pip-tools
 
