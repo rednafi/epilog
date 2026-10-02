@@ -20,7 +20,7 @@ flake8==7.4.1
     # via -r requirements-dev.in
 iniconfig==1.1.1
     # via pytest
-isort==9.0.1
+isort==9.0.2
     # via -r requirements-dev.in
 librt==0.13.0
     # via mypy
